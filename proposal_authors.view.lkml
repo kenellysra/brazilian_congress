@@ -1,32 +1,32 @@
 view: proposal_authors {
   sql_table_name: kenelly_thesis.proposal_authors ;;
 
-  dimension: cod_tipo_autor {
+  dimension: author_type_code {
     type: number
     sql: ${TABLE}.codTipoAutor ;;
   }
 
-  dimension: id_deputado_autor {
+  dimension: congressperson_id {
     type: number
     sql: ${TABLE}.idDeputadoAutor ;;
   }
 
-  dimension: id_proposicao {
+  dimension: proposal_id {
     type: number
     sql: ${TABLE}.idProposicao ;;
   }
 
-  dimension: nome_autor {
+  dimension: author_name {
     type: string
     sql: ${TABLE}.nomeAutor ;;
   }
 
-  dimension: sigla_partido_autor {
+  dimension: author_political_party_initials {
     type: string
     sql: ${TABLE}.siglaPartidoAutor ;;
   }
 
-  dimension: sigla_ufautor {
+  dimension: author_state {
     type: string
     sql: ${TABLE}.siglaUFAutor ;;
   }
@@ -36,22 +36,22 @@ view: proposal_authors {
     sql: ${TABLE}.source_year ;;
   }
 
-  dimension: tipo_autor {
+  dimension: author_type {
     type: string
     sql: ${TABLE}.tipoAutor ;;
   }
 
-  dimension: uri_autor {
+  dimension: congressperson_uri {
     type: string
     sql: ${TABLE}.uriAutor ;;
   }
 
-  dimension: uri_partido_autor {
+  dimension: author_ppolitical_party_uri {
     type: string
     sql: ${TABLE}.uriPartidoAutor ;;
   }
 
-  dimension: uri_proposicao {
+  dimension: proposal_uri {
     type: string
     sql: ${TABLE}.uriProposicao ;;
   }

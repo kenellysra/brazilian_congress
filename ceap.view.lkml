@@ -7,12 +7,12 @@ view: ceap {
     sql: ${TABLE}.id ;;
   }
 
-  dimension: cod_legislatura {
+  dimension: congressperson_legislature_code {
     type: number
     sql: ${TABLE}.codLegislatura ;;
   }
 
-  dimension_group: dat_emissao {
+  dimension_group: spending_date {
     type: time
     timeframes: [
       raw,
@@ -26,77 +26,77 @@ view: ceap {
     sql: ${TABLE}.datEmissao ;;
   }
 
-  dimension: ide_cadastro {
+  dimension: congressperson_record_id {
     type: number
     sql: ${TABLE}.ideCadastro ;;
   }
 
-  dimension: ide_documento {
+  dimension: spending_document_id {
     type: number
     sql: ${TABLE}.ideDocumento ;;
   }
 
-  dimension: ind_tipo_documento {
+  dimension: spending_document_type {
     type: number
     sql: ${TABLE}.indTipoDocumento ;;
   }
 
-  dimension: nu_carteira_parlamentar {
+  dimension: congressperson_card_number {
     type: number
     sql: ${TABLE}.nuCarteiraParlamentar ;;
   }
 
-  dimension: nu_deputado_id {
+  dimension: compressperson_id {
     type: number
     sql: ${TABLE}.nuDeputadoId ;;
   }
 
-  dimension: nu_legislatura {
+  dimension: congressperson_legislature_number {
     type: number
     sql: ${TABLE}.nuLegislatura ;;
   }
 
-  dimension: num_ano {
+  dimension: spending_year {
     type: number
     sql: ${TABLE}.numAno ;;
   }
 
-  dimension: num_especificacao_sub_cota {
+  dimension: spending_detail_id {
     type: number
     sql: ${TABLE}.numEspecificacaoSubCota ;;
   }
 
-  dimension: num_lote {
+  dimension: spending_lot_number {
     type: number
     sql: ${TABLE}.numLote ;;
   }
 
-  dimension: num_mes {
+  dimension: spending_month {
     type: number
     sql: ${TABLE}.numMes ;;
   }
 
-  dimension: num_parcela {
+  dimension: spending_portion {
     type: number
     sql: ${TABLE}.numParcela ;;
   }
 
-  dimension: num_ressarcimento {
+  dimension: spending_reimbursement_number {
     type: number
     sql: ${TABLE}.numRessarcimento ;;
   }
 
-  dimension: num_sub_cota {
+  dimension: spending_category_id {
     type: number
     sql: ${TABLE}.numSubCota ;;
   }
 
-  dimension: sg_partido {
+  dimension: songressperson_political_party{
     type: string
     sql: ${TABLE}.sgPartido ;;
   }
 
-  dimension: sg_uf {
+  dimension: congressperson_state {
     type: string
     sql: ${TABLE}.sgUF ;;
   }
@@ -106,62 +106,62 @@ view: ceap {
     sql: ${TABLE}.source_year ;;
   }
 
-  dimension: tx_nome_parlamentar {
+  dimension: congressperson_name {
     type: string
     sql: ${TABLE}.txNomeParlamentar ;;
   }
 
-  dimension: txt_cnpjcpf {
+  dimension: supplier_id {
     type: string
     sql: ${TABLE}.txtCNPJCPF ;;
   }
 
-  dimension: txt_descricao {
+  dimension: spending_category {
     type: string
     sql: ${TABLE}.txtDescricao ;;
   }
 
-  dimension: txt_descricao_especificacao {
+  dimension: spending_detail {
     type: string
     sql: ${TABLE}.txtDescricaoEspecificacao ;;
   }
 
-  dimension: txt_fornecedor {
+  dimension: supplier_name {
     type: string
     sql: ${TABLE}.txtFornecedor ;;
   }
 
-  dimension: txt_numero {
+  dimension: supplier_number {
     type: string
     sql: ${TABLE}.txtNumero ;;
   }
 
-  dimension: txt_passageiro {
+  dimension: flight_passenger {
     type: string
     sql: ${TABLE}.txtPassageiro ;;
   }
 
-  dimension: txt_trecho {
+  dimension: flight_route {
     type: string
     sql: ${TABLE}.txtTrecho ;;
   }
 
-  dimension: vlr_documento {
+  dimension: spending_document_amount {
     type: number
     sql: ${TABLE}.vlrDocumento ;;
   }
 
-  dimension: vlr_glosa {
+  dimension: spending_gross_value {
     type: number
     sql: ${TABLE}.vlrGlosa ;;
   }
 
-  dimension: vlr_liquido {
+  dimension: spending_net_value {
     type: number
     sql: ${TABLE}.vlrLiquido ;;
   }
 
-  dimension: vlr_restituicao {
+  dimension: spending_reimbursement_amount {
     type: string
     sql: ${TABLE}.vlrRestituicao ;;
   }

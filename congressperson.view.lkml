@@ -1,17 +1,17 @@
 view: congressperson {
   sql_table_name: kenelly_thesis.congressperson ;;
 
-  dimension: _uri_ {
+  dimension: uri {
     type: string
     sql: ${TABLE}._uri_ ;;
   }
 
-  dimension: cpf {
+  dimension: congressperson_document_number {
     type: string
     sql: ${TABLE}.cpf ;;
   }
 
-  dimension_group: data_falecimento {
+  dimension_group: death_date {
     type: time
     timeframes: [
       raw,
@@ -26,7 +26,7 @@ view: congressperson {
     sql: ${TABLE}.dataFalecimento ;;
   }
 
-  dimension_group: data_nascimento {
+  dimension_group: birth_date {
     type: time
     timeframes: [
       raw,
@@ -41,47 +41,47 @@ view: congressperson {
     sql: ${TABLE}.dataNascimento ;;
   }
 
-  dimension: id_legislatura_final {
+  dimension: legislature_end_id {
     type: number
     sql: ${TABLE}.idLegislaturaFinal ;;
   }
 
-  dimension: id_legislatura_inicial {
+  dimension: legislature_start_id {
     type: number
     sql: ${TABLE}.idLegislaturaInicial ;;
   }
 
-  dimension: municipio_nascimento {
+  dimension: birth_city {
     type: string
     sql: ${TABLE}.municipioNascimento ;;
   }
 
-  dimension: nome {
+  dimension: name {
     type: string
     sql: ${TABLE}.nome ;;
   }
 
-  dimension: nome_civil {
+  dimension: full_name {
     type: string
     sql: ${TABLE}.nomeCivil ;;
   }
 
-  dimension: sigla_sexo {
+  dimension: gender {
     type: string
     sql: ${TABLE}.siglaSexo ;;
   }
 
-  dimension: uf_nascimento {
+  dimension: birth_state {
     type: string
     sql: ${TABLE}.ufNascimento ;;
   }
 
-  dimension: url_rede_social {
+  dimension: social_media_url {
     type: string
     sql: ${TABLE}.urlRedeSocial ;;
   }
 
-  dimension: url_website {
+  dimension: website_url {
     type: string
     sql: ${TABLE}.urlWebsite ;;
   }

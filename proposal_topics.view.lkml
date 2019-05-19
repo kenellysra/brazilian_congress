@@ -1,27 +1,27 @@
 view: proposal_topics {
   sql_table_name: kenelly_thesis.proposal_topics ;;
 
-  dimension: ano {
+  dimension: proposal_year {
     type: number
     sql: ${TABLE}.ano ;;
   }
 
-  dimension: cod_tema {
+  dimension: proposal_topic_code{
     type: number
     sql: ${TABLE}.codTema ;;
   }
 
-  dimension: numero {
+  dimension: proposal_number {
     type: number
     sql: ${TABLE}.numero ;;
   }
 
-  dimension: relevancia {
+  dimension: proposal_relevance {
     type: number
     sql: ${TABLE}.relevancia ;;
   }
 
-  dimension: sigla_tipo {
+  dimension: proposal_type_initials {
     type: string
     sql: ${TABLE}.siglaTipo ;;
   }
@@ -31,12 +31,12 @@ view: proposal_topics {
     sql: ${TABLE}.source_year ;;
   }
 
-  dimension: tema {
+  dimension: proposal_topic {
     type: string
     sql: ${TABLE}.tema ;;
   }
 
-  dimension: uri_proposicao {
+  dimension: proposal_uri {
     type: string
     sql: ${TABLE}.uriProposicao ;;
   }

@@ -1,23 +1,23 @@
 view: proposals {
   sql_table_name: kenelly_thesis.proposals ;;
 
-  dimension: id {
+  dimension: proposal_id {
     primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
   }
 
-  dimension: ano {
+  dimension: proposal_year {
     type: number
     sql: ${TABLE}.ano ;;
   }
 
-  dimension: cod_tipo {
+  dimension: proposal_type_code {
     type: number
     sql: ${TABLE}.codTipo ;;
   }
 
-  dimension_group: data_apresentacao {
+  dimension_group: proposal_initial_date {
     type: time
     timeframes: [
       raw,
@@ -31,32 +31,32 @@ view: proposals {
     sql: ${TABLE}.dataApresentacao ;;
   }
 
-  dimension: descricao_tipo {
+  dimension: proposal_type_description{
     type: string
     sql: ${TABLE}.descricaoTipo ;;
   }
 
-  dimension: ementa {
+  dimension: proposal_summary {
     type: string
     sql: ${TABLE}.ementa ;;
   }
 
-  dimension: ementa_detalhada {
+  dimension: proposal_detailed_description {
     type: string
     sql: ${TABLE}.ementaDetalhada ;;
   }
 
-  dimension: keywords {
+  dimension: proposal_keywords {
     type: string
     sql: ${TABLE}.keywords ;;
   }
 
-  dimension: numero {
+  dimension: proposal_number {
     type: number
     sql: ${TABLE}.numero ;;
   }
 
-  dimension: sigla_tipo {
+  dimension: proposal_type_initials {
     type: string
     sql: ${TABLE}.siglaTipo ;;
   }
@@ -66,7 +66,7 @@ view: proposals {
     sql: ${TABLE}.source_year ;;
   }
 
-  dimension_group: ultimo_status_data_hora {
+  dimension_group: proposal_last_updated_date {
     type: time
     timeframes: [
       raw,
@@ -80,65 +80,65 @@ view: proposals {
     sql: ${TABLE}.ultimoStatus_dataHora ;;
   }
 
-  dimension: ultimo_status_descricao_situacao {
+  dimension: proposal_last_updated_status{
     type: string
     sql: ${TABLE}.ultimoStatus_descricaoSituacao ;;
   }
 
-  dimension: ultimo_status_descricao_tramitacao {
+  dimension: procedure_description_last_updated_status {
     type: string
     sql: ${TABLE}.ultimoStatus_descricaoTramitacao ;;
   }
 
-  dimension: ultimo_status_despacho {
+  dimension: dispatch_last_status {
     type: string
     sql: ${TABLE}.ultimoStatus_despacho ;;
   }
 
-  dimension: ultimo_status_id_orgao {
+  dimension: responsible_body_last_status {
     type: number
     value_format_name: id
     sql: ${TABLE}.ultimoStatus_idOrgao ;;
   }
 
-  dimension: ultimo_status_id_situacao {
+  dimension: situation_id_last_status {
     type: number
     value_format_name: id
     sql: ${TABLE}.ultimoStatus_idSituacao ;;
   }
 
-  dimension: ultimo_status_id_tipo_tramitacao {
+  dimension: procedure_type_id_last_status {
     type: number
     value_format_name: id
     sql: ${TABLE}.ultimoStatus_idTipoTramitacao ;;
   }
 
-  dimension: ultimo_status_regime {
+  dimension: regime_last_status {
     type: string
     sql: ${TABLE}.ultimoStatus_regime ;;
   }
 
-  dimension: ultimo_status_sequencia {
+  dimension: sequence_last_status {
     type: number
     sql: ${TABLE}.ultimoStatus_sequencia ;;
   }
 
-  dimension: ultimo_status_sigla_orgao {
+  dimension: responsible_body_initials_last_status {
     type: string
     sql: ${TABLE}.ultimoStatus_siglaOrgao ;;
   }
 
-  dimension: ultimo_status_uri_orgao {
+  dimension: responsible_body_uri_last_status {
     type: string
     sql: ${TABLE}.ultimoStatus_uriOrgao ;;
   }
 
-  dimension: ultimo_status_uri_relator {
+  dimension: referendary_uri_last_status {
     type: string
     sql: ${TABLE}.ultimoStatus_uriRelator ;;
   }
 
-  dimension: ultimo_status_url {
+  dimension: last_status_url {
     type: string
     sql: ${TABLE}.ultimoStatus_url ;;
   }
@@ -148,12 +148,12 @@ view: proposals {
     sql: ${TABLE}.uri ;;
   }
 
-  dimension: uri_orgao_numerador {
+  dimension: uri_responsible_body_number {
     type: string
     sql: ${TABLE}.uriOrgaoNumerador ;;
   }
 
-  dimension: uri_prop_anterior {
+  dimension: uri_prop_preceding {
     type: string
     sql: ${TABLE}.uriPropAnterior ;;
   }
@@ -168,7 +168,7 @@ view: proposals {
     sql: ${TABLE}.uriPropPrincipal ;;
   }
 
-  dimension: url_inteiro_teor {
+  dimension: url_inteiro_content {
     type: string
     sql: ${TABLE}.urlInteiroTeor ;;
   }
@@ -180,6 +180,6 @@ view: proposals {
 
   measure: count {
     type: count
-    drill_fields: [id]
+    drill_fields: [proposal_id]
   }
 }
