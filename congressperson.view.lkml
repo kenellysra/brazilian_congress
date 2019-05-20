@@ -1,12 +1,18 @@
 view: congressperson {
   sql_table_name: kenelly_thesis.congressperson ;;
 
+
+  dimension: id {
+    primary_key: yes
+    type: number
+    sql: CAST(SUBSTR(${uri}, 53, 6) AS INT64);;
+  }
   dimension: uri {
     type: string
     sql: ${TABLE}._uri_ ;;
   }
 
-  dimension: congressperson_document_number {
+  dimension: document_number {
     type: string
     sql: ${TABLE}.cpf ;;
   }

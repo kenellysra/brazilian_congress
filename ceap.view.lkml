@@ -26,7 +26,7 @@ view: ceap {
     sql: ${TABLE}.datEmissao ;;
   }
 
-  dimension: congressperson_record_id {
+  dimension: congressperson_id {
     type: number
     sql: ${TABLE}.ideCadastro ;;
   }
@@ -46,7 +46,7 @@ view: ceap {
     sql: ${TABLE}.nuCarteiraParlamentar ;;
   }
 
-  dimension: compressperson_id {
+  dimension: congressperson_number_id {
     type: number
     sql: ${TABLE}.nuDeputadoId ;;
   }
@@ -91,7 +91,7 @@ view: ceap {
     sql: ${TABLE}.numSubCota ;;
   }
 
-  dimension: songressperson_political_party{
+  dimension: congressperson_political_party{
     type: string
     sql: ${TABLE}.sgPartido ;;
   }

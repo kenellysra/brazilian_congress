@@ -10,7 +10,12 @@ datagroup: kenelly_thesis_brazilian_congress_default_datagroup {
 
 persist_with: kenelly_thesis_brazilian_congress_default_datagroup
 
-explore: ceap {}
+explore: ceap {
+  join: congressperson {
+    sql_on: ${ceap.congressperson_id} = ${congressperson.id} ;;
+    relationship: many_to_one
+  }
+}
 
 explore: congressperson {}
 

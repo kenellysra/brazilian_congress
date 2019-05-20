@@ -46,7 +46,7 @@ view: proposal_authors {
     sql: ${TABLE}.uriAutor ;;
   }
 
-  dimension: author_ppolitical_party_uri {
+  dimension: author_political_party_uri {
     type: string
     sql: ${TABLE}.uriPartidoAutor ;;
   }
