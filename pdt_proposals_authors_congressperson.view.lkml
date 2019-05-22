@@ -68,6 +68,12 @@ view: pdt_proposals_authors_congressperson {
     sql: ${TABLE}.siglaUFAutor ;;
   }
 
+  dimension: congressperson_id {
+    primary_key: yes
+    type: number
+    sql: CAST(SUBSTR(${congressperson_uri}, 53, 6) AS INT64);;
+  }
+
   dimension: congressperson_uri {
     type: string
     sql: ${TABLE}._uri_ ;;

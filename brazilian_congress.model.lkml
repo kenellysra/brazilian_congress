@@ -63,5 +63,14 @@ explore: proposal_topics {}
 explore: proposals {}
 
 explore: pdt_proposals_authors_congressperson {
+  label: "Brazilian Congress"
+  join: proposals {
+    sql_on: ${pdt_proposals_authors_congressperson.proposal_id} = ${proposals.proposal_id};;
+    relationship: many_to_one
+  }
+  join: ceap {
+    sql_on: ${pdt_proposals_authors_congressperson.congressperson_id} = ${ceap.congressperson_id};;
+    relationship: one_to_many
+  }
 
 }
