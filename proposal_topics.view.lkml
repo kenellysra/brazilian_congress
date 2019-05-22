@@ -1,6 +1,12 @@
 view: proposal_topics {
   sql_table_name: kenelly_thesis.proposal_topics ;;
 
+  dimension: proposal_id {
+    type: number
+    primary_key: yes
+    sql: CAST(SUBSTR(${proposal_uri}, 55, 7) AS INT64);;
+  }
+
   dimension: proposal_year {
     type: number
     sql: ${TABLE}.ano ;;

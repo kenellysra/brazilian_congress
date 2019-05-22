@@ -6,7 +6,7 @@ view: proposal_authors {
     sql: ${TABLE}.codTipoAutor ;;
   }
 
-  dimension: congressperson_id {
+  dimension: author_id {
     type: number
     sql: ${TABLE}.idDeputadoAutor ;;
   }
@@ -41,7 +41,7 @@ view: proposal_authors {
     sql: ${TABLE}.tipoAutor ;;
   }
 
-  dimension: congressperson_uri {
+  dimension: author_uri {
     type: string
     sql: ${TABLE}.uriAutor ;;
   }

@@ -15,12 +15,53 @@ explore: ceap {
     sql_on: ${ceap.congressperson_id} = ${congressperson.id} ;;
     relationship: many_to_one
   }
+  join: proposal_authors {
+    sql_on: ${ceap.congressperson_id} = ${proposal_authors.author_id}  ;;
+    relationship: one_to_many
+  }
+  join: proposals {
+    sql_on: ${proposal_authors.author_id} = ${proposals.proposal_id} ;;
+    relationship: many_to_one
+  }
+  join: proposal_topics {
+    sql_on: ${proposals.proposal_id} = ${proposal_topics.proposal_id} ;;
+    relationship: many_to_one
+  }
 }
 
 explore: congressperson {}
 
-explore: proposal_authors {}
+explore: proposal_authors {
+  join:  pdt_congressperson_ceap {
+    sql_on: ${pdt_congressperson_ceap.id} =${proposal_authors.author_id} AND ${proposal_authors.author_type_code} = 10000;;
+    relationship: many_to_many
+  }
+
+
+#   join: congressperson {
+#     sql_on: ${congressperson.id} = ${proposal_authors.author_id} AND ${proposal_authors.author_type_code} = 10000 ;;
+#     relationship: many_to_one
+#   }
+  join: proposals {
+    sql_on: ${proposal_authors.author_id} = ${proposals.proposal_id} ;;
+    relationship: many_to_one
+
+  }
+  join: proposal_topics {
+    sql_on: ${proposals.proposal_id} = ${proposal_topics.proposal_id} ;;
+    relationship: :many_to_one
+
+  }
+#   join: ceap {
+#     sql_on: ${ceap.congressperson_id} = ${congressperson.id} ;;
+#
+#   }
+}
 
 explore: proposal_topics {}
 
 explore: proposals {}
+
+explore: pdt_proposals_authors_congressperson {
+
+}
