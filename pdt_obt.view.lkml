@@ -8,7 +8,7 @@ view: pdt_obt_01 {
     partition_keys: ["datEmissao"]
     sql:
         WITH pt AS (SELECT * EXCEPT (siglaTipo, numero, ano) FROM kenelly_thesis.proposal_topics)
-        , ceap AS (SELECT * EXCEPT (id) FROM kenelly_thesis.ceap WHERE datEmissao  >= '2009-01-01' AND datEmissao  < '2014-01-01')
+        , ceap AS (SELECT *, id AS ceap_id FROM kenelly_thesis.ceap WHERE datEmissao  >= '2009-01-01' AND datEmissao  < '2014-01-01')
         , pa AS (SELECT * EXCEPT (uriProposicao) FROM kenelly_thesis.proposal_authors)
         SELECT
           concat('01',GENERATE_UUID()) AS pk
@@ -29,7 +29,7 @@ view: pdt_obt_02 {
     partition_keys: ["datEmissao"]
     sql:
         WITH pt AS (SELECT * EXCEPT (siglaTipo, numero, ano) FROM kenelly_thesis.proposal_topics)
-        , ceap AS (SELECT * EXCEPT (id) FROM kenelly_thesis.ceap WHERE datEmissao  >= '2014-01-01' AND datEmissao  < '2019-01-01')
+        , ceap AS (SELECT *, id AS ceap_id FROM kenelly_thesis.ceap WHERE datEmissao  >= '2014-01-01' AND datEmissao  < '2019-01-01')
         , pa AS (SELECT * EXCEPT (uriProposicao) FROM kenelly_thesis.proposal_authors)
         SELECT
           concat('02',GENERATE_UUID()) AS pk
@@ -60,19 +60,25 @@ view: all_data {
   }
 
   dimension: id {}
+  dimension: ceap_id {}
+  dimension: txNomeParlamentar {}
   dimension: name {
-    sql: ${TABLE}.txNomeParlamentar ;;
+    sql: ${txNomeParlamentar} ;;
   }
-  dimension_group: spend {
+  dimension: spend {
+    sql: ${TABLE}.vlrDocumento ;;
+  }
+  dimension_group: date {
     type: time
     sql: ${TABLE}.datEmissao ;;
   }
   measure: count {
     type: count
   }
-  measure: spend {
+  measure: total_spend {
     type: sum
-    sql: ${TABLE}.vlrDocumento ;;
+    sql: ${spend} ;;
+    sql_distinct_key: ${ceap_id} ;;
     value_format_name: decimal_2
   }
 }
