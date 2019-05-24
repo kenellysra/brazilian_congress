@@ -62,15 +62,19 @@ explore: proposal_topics {}
 
 explore: proposals {}
 
+explore: congressperson_spending_facts {}
+
 explore: pdt_proposals_authors_congressperson {
-  label: "Brazilian Congress"
-  join: proposals {
-    sql_on: ${pdt_proposals_authors_congressperson.proposal_id} = ${proposals.proposal_id};;
+  label: "Congressperson Expenses"
+  join: proposal_topics {
+    sql_on: ${pdt_proposals_authors_congressperson.proposal_id} = ${proposal_topics.proposal_id};;
     relationship: many_to_one
   }
   join: ceap {
     sql_on: ${pdt_proposals_authors_congressperson.congressperson_id} = ${ceap.congressperson_id};;
-    relationship: one_to_many
+    relationship: many_to_many
   }
+
+
 
 }

@@ -170,4 +170,10 @@ view: ceap {
     type: count
     drill_fields: [id]
   }
+
+  measure: total_spent {
+    type: sum
+    sql: ${spending_document_amount} ;;
+    value_format_name: "decimal_2"
+  }
 }
