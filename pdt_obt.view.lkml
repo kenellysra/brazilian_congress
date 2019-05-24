@@ -2,10 +2,10 @@ view: pdt_obt {
   # source_year, uriProposicao, siglaTipo, numero, ano, id are dups
   #   2b row
   derived_table: {
-#     partition_keys: ["datEmissao"] # max bq partitions is 2k, this is 4k
+    partition_keys: ["datEmissao"]
     sql:
         WITH pt AS (SELECT * EXCEPT (siglaTipo, numero, ano) FROM kenelly_thesis.proposal_topics)
-        ,  ceap AS (SELECT * EXCEPT (id) FROM kenelly_thesis.ceap)
+        , ceap AS (SELECT * EXCEPT (id) FROM kenelly_thesis.ceap WHERE datEmissao  >= '2009-01-01' AND datEmissao  < '2014-01-01')
         , pa AS (SELECT * EXCEPT (uriProposicao) FROM kenelly_thesis.proposal_authors)
         SELECT
           GENERATE_UUID() AS pk
