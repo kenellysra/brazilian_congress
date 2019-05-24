@@ -79,4 +79,11 @@ explore: pdt_proposals_authors_congressperson {
 
 }
 
-explore: pdt_obt {}
+explore: all_data {
+  always_filter: {
+    filters: {
+      field: date_filter
+      value: "2 years"
+    }
+  }
+}
