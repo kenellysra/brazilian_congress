@@ -16,7 +16,7 @@ view: pdt_obt {
       LEFT JOIN kenelly_thesis.proposal_topics  AS proposal_topics ON proposal_authors.idProposicao = (CAST(SUBSTR(proposal_topics.uriProposicao, 55, 7) AS INT64))
       LEFT JOIN kenelly_thesis.ceap  AS ceap ON (CAST(SUBSTR(congressperson._uri_, 53, 6) AS INT64)) = ceap.ideCadastro
     ;;
-    sql_trigger_value: SELECT 1 ;;
+#     sql_trigger_value: SELECT 1 ;;
   }
   dimension: id {}
 }
