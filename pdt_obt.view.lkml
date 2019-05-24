@@ -8,7 +8,7 @@ view: pdt_obt_01 {
     partition_keys: ["datEmissao"]
     sql:
         WITH pt AS (SELECT * EXCEPT (siglaTipo, numero, ano) FROM kenelly_thesis.proposal_topics)
-        , ceap AS (SELECT *, id AS ceap_id FROM kenelly_thesis.ceap WHERE datEmissao  >= '2009-01-01' AND datEmissao  < '2014-01-01')
+        , ceap AS (SELECT * EXCEPT (id), id AS ceap_id FROM kenelly_thesis.ceap WHERE datEmissao  >= '2009-01-01' AND datEmissao  < '2014-01-01')
         , pa AS (SELECT * EXCEPT (uriProposicao) FROM kenelly_thesis.proposal_authors)
         SELECT
           concat('01',GENERATE_UUID()) AS pk
@@ -29,7 +29,7 @@ view: pdt_obt_02 {
     partition_keys: ["datEmissao"]
     sql:
         WITH pt AS (SELECT * EXCEPT (siglaTipo, numero, ano) FROM kenelly_thesis.proposal_topics)
-        , ceap AS (SELECT *, id AS ceap_id FROM kenelly_thesis.ceap WHERE datEmissao  >= '2014-01-01' AND datEmissao  < '2019-01-01')
+        , ceap AS (SELECT * EXCEPT (id), id AS ceap_id FROM kenelly_thesis.ceap WHERE datEmissao  >= '2014-01-01' AND datEmissao  < '2019-01-01')
         , pa AS (SELECT * EXCEPT (uriProposicao) FROM kenelly_thesis.proposal_authors)
         SELECT
           concat('02',GENERATE_UUID()) AS pk
