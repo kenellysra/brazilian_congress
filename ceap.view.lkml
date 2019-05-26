@@ -51,7 +51,7 @@ view: ceap {
     sql: ${TABLE}.nuDeputadoId ;;
   }
 
-  dimension: congressperson_legislature_number {
+  dimension: congressperson_legislature_year {
     type: number
     sql: ${TABLE}.nuLegislatura ;;
   }
@@ -149,31 +149,60 @@ view: ceap {
   dimension: spending_document_amount {
     type: number
     sql: ${TABLE}.vlrDocumento ;;
+    value_format: "\" R\"$#,##0.00"
   }
 
   dimension: spending_gross_value {
     type: number
     sql: ${TABLE}.vlrGlosa ;;
+    value_format: "\" R\"$#,##0.00"
   }
 
   dimension: spending_net_value {
     type: number
     sql: ${TABLE}.vlrLiquido ;;
+    value_format: "\" R\"$#,##0.00"
   }
 
   dimension: spending_reimbursement_amount {
     type: string
     sql: ${TABLE}.vlrRestituicao ;;
+    value_format: "\" R\"$#,##0.00"
   }
+
+  dimension: legislature_tier {
+    type: tier
+    style: integer
+    tiers: [2007, 2011, 2015, 2019]
+    sql:  ${spending_year} ;;
+  }
+
+  dimension: state {
+    sql: ${congressperson_state} ;;
+    map_layer_name: my_neighborhood_layer
+  }
+
+  dimension: congressperson_image {
+    type: string
+    sql: ${congressperson_id};;
+    html: <img src="https://www.camara.leg.br/internet/deputado/bandep/pagina_do_deputado/{{value}}.jpg" /> ;;
+  }
+
 
   measure: count {
     type: count
     drill_fields: [id]
   }
 
+  measure: count_congressperson {
+    type: count_distinct
+    sql:  ${congressperson_id};;
+   # drill_fields: [congressperson_name, congressperson_id]
+  }
+
   measure: total_spent {
     type: sum
     sql: ${spending_document_amount} ;;
-    value_format_name: "decimal_2"
+    value_format: "\" R\"$#,##0.00"
   }
 }

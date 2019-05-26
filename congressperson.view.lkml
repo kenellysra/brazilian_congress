@@ -92,6 +92,21 @@ view: congressperson {
     sql: ${TABLE}.urlWebsite ;;
   }
 
+  measure: count_distinct {
+    type: count_distinct
+    sql:  ${id};;
+
+  }
+
+  measure: congressperson_career {
+    type: number
+    sql: CASE
+            WHEN ${legislature_start_id} = 56 THEN 1
+            ELSE ((${legislature_end_id} - ${legislature_start_id}) +1 ) *4
+            END;;
+    #value_format: "0 \" Years\""
+  }
+
   measure: count {
     type: count
     drill_fields: []

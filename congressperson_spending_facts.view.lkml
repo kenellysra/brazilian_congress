@@ -2,19 +2,13 @@ view: congressperson_spending_facts {
   derived_table: {
     sql: SELECT ceap.ideCadastro AS congressperson_id,
         ceap.txNomeParlamentar  AS congressperson_name,
-        datEmissao AS spending_date,
-        txtDescricao AS spending_category,
-        congressperson.siglasexo AS genre,
-        sgPartido AS political_party,
-        sgUF AS state,
-        source_year AS source_year,
-        MAX(vlrDocumento) AS expensive,
-        MIN(vlrDocumento) AS cheaper,
+        MAX(vlrDocumento) AS expensive_expense,
+        MIN(vlrDocumento) AS cheaper_expense,
         ROUND(SUM(vlrDocumento), 2) AS  total_spent
         FROM kenelly_thesis.ceap ceap
         LEFT JOIN kenelly_thesis.congressperson  congressperson
         ON ceap.ideCadastro = (CAST(SUBSTR(congressperson._uri_, 53, 6) AS INT64))
-      GROUP BY 1, 2, 3, 4, 5, 6 , 7, 8
+      GROUP BY 1, 2
        ;;
   }
 
@@ -33,63 +27,30 @@ view: congressperson_spending_facts {
     sql: ${TABLE}.congressperson_name ;;
   }
 
-  dimension_group: spending_date {
-    type: time
-    sql: ${TABLE}.spending_date ;;
-  }
-
-  dimension: spending_category {
-    type: string
-    sql: ${TABLE}.spending_category ;;
-  }
-
-  dimension: genre {
-    type: string
-    sql: ${TABLE}.genre ;;
-  }
-
-  dimension: political_party {
-    type: string
-    sql: ${TABLE}.political_party ;;
-  }
-
-  dimension: state {
-    type: string
-    sql: ${TABLE}.state ;;
-  }
-
-  dimension: source_year {
+  dimension: expensive_expense {
     type: number
-    sql: ${TABLE}.source_year ;;
+    sql: ${TABLE}.expensive_expense ;;
+    value_format: "\" R\"$#,##0.00"
   }
 
-  dimension: expensive {
+  dimension: cheaper_expense {
     type: number
-    sql: ${TABLE}.expensive ;;
-  }
-
-  dimension: cheaper {
-    type: number
-    sql: ${TABLE}.cheaper ;;
+    sql: ${TABLE}.cheaper_expense ;;
+    value_format: "\" R\"$#,##0.00"
   }
 
   dimension: total_spent {
     type: number
     sql: ${TABLE}.total_spent ;;
+    value_format: "\" R\"$#,##0.00"
   }
 
   set: detail {
     fields: [
       congressperson_id,
       congressperson_name,
-      spending_date_time,
-      spending_category,
-      genre,
-      political_party,
-      state,
-      source_year,
-      expensive,
-      cheaper,
+      expensive_expense,
+      cheaper_expense,
       total_spent
     ]
   }
