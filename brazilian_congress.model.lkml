@@ -8,6 +8,11 @@ datagroup: kenelly_thesis_brazilian_congress_default_datagroup {
   max_cache_age: "1 hour"
 }
 
+map_layer: my_neighborhood_layer {
+  file: "brazilian_states.topojson"
+  property_key: "neighborhood"
+}
+
 persist_with: kenelly_thesis_brazilian_congress_default_datagroup
 
 explore: ceap {
