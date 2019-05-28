@@ -72,11 +72,14 @@ view: all_data {
     type: time
     sql: ${TABLE}.datEmissao ;;
   }
+  dimension: proposal_topic {
+    sql: ${TABLE}.tema ;;
+  }
   measure: count {
     type: count
   }
   measure: total_spend {
-    type: sum
+    type: sum_distinct
     sql: ${spend} ;;
     sql_distinct_key: ${ceap_id} ;;
     value_format_name: decimal_2
