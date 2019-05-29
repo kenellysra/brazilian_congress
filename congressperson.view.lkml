@@ -98,6 +98,19 @@ view: congressperson {
 
   }
 
+  dimension: top_banner_congressperson {
+    sql: ${TABLE}.municipioNascimento;;
+    html: <img src="http://www.camara.gov.br/internet/bancoimagem/banco/img201506302027107363015.jpg" style="width:100%;height:70%;"> ;;
+  }
+
+  dimension: gender_full {
+    type: string
+    sql: CASE
+              WHEN ${gender} = 'M' THEN 'Man'
+              WHEN ${gender} = 'F' THEN 'Woman'
+              END;;
+  }
+
   measure: congressperson_career {
     type: number
     sql: CASE

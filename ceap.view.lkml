@@ -185,13 +185,41 @@ view: ceap {
   dimension: congressperson_image {
     type: string
     sql: ${congressperson_id};;
-    html: <img src="https://www.camara.leg.br/internet/deputado/bandep/pagina_do_deputado/{{value}}.jpg" /> ;;
+    html: <img src="https://www.camara.leg.br/internet/deputado/bandep/{{value}}.jpgmaior.jpg" /> ;;
   }
 
+  measure: minimum_annual_salary{
+    type: number
+    sql: CASE
+                WHEN ${spending_year} = 2008 THEN (415.00 * 13)
+                WHEN ${spending_year} = 2009 THEN (465.00 * 13)
+                WHEN ${spending_year} = 2010 THEN (510.00 * 13)
+                WHEN ${spending_year} = 2011 THEN (545.00 * 13)
+                WHEN ${spending_year} = 2012 THEN (622.00 * 13)
+                WHEN ${spending_year} = 2013 THEN (678.00 * 13)
+                WHEN ${spending_year} = 2014 THEN (724.00 * 13)
+                WHEN ${spending_year} = 2015 THEN (788.00 * 13)
+                WHEN ${spending_year} = 2016 THEN (880.00 * 13)
+                WHEN ${spending_year} = 2017 THEN (937.00 * 13)
+                WHEN ${spending_year} = 2018 THEN (954.00 * 13)
+                WHEN ${spending_year} = 2019 THEN (998.00 * 13)
+        END;;
+    value_format: "\" R\"$#,##0.00"
+  }
+
+  dimension: top_banner_brazilian_congress {
+    sql: ${TABLE}.sgUF ;;
+    html: <img src="https://www.congressonacional.leg.br/congresso-theme/images/_carrossel_foto1.jpg" style="width:100%;height:10%;"> ;;
+  }
 
   measure: count {
     type: count
     drill_fields: [id]
+  }
+
+  measure: maximum_spending{
+    type: max
+    sql: ${spending_document_amount} ;;
   }
 
   measure: count_congressperson {

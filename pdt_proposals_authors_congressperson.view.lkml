@@ -289,6 +289,8 @@ view: pdt_proposals_authors_congressperson {
     sql: ${TABLE}.ultimoStatus_url ;;
   }
 
+
+
   set: detail {
     fields: [
       pk,

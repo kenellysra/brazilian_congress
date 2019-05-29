@@ -178,6 +178,23 @@ view: proposals {
     sql: ${TABLE}.urnFinal ;;
   }
 
+  dimension: is_approved {
+    type: yesno
+    #sql: CONTAINS('aprovado', lower(${dispatch_last_status})) ;;
+    sql: lower(${dispatch_last_status}) LIKE '%aprovado%';;
+  }
+
+  dimension: proposal_duration {
+    type: number
+    sql: DATE_DIFF( ${proposal_last_updated_date_date}, ${proposal_initial_date_date},YEAR) ;;
+  }
+
+  dimension: top_banner_proposals {
+    sql: ${TABLE}.id;;
+    html: <img src="https://www.abla.com.br/wp-content/uploads/2017/07/lei.jpg" style="width:100%;height:70%;"> ;;
+  }
+
+
   measure: count {
     type: count
     drill_fields: [proposal_id]

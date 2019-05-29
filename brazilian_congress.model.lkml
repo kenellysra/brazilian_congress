@@ -84,6 +84,7 @@ explore: pdt_proposals_authors_congressperson {
 
 }
 
+
 explore: all_data {
   always_filter: {
     filters: {
