@@ -106,8 +106,8 @@ view: congressperson {
   dimension: gender_full {
     type: string
     sql: CASE
-              WHEN ${gender} = 'M' THEN 'Man'
-              WHEN ${gender} = 'F' THEN 'Woman'
+              WHEN ${gender} = 'M' THEN 'Male'
+              WHEN ${gender} = 'F' THEN 'Female'
               END;;
   }
 
@@ -118,6 +118,12 @@ view: congressperson {
             ELSE ((${legislature_end_id} - ${legislature_start_id}) +1 ) *4
             END;;
     #value_format: "0 \" Years\""
+  }
+
+  dimension: congressperson_image {
+    type: string
+    sql: ${id};;
+    html: <img src="https://www.camara.leg.br/internet/deputado/bandep/{{value}}.jpgmaior.jpg" / style = "width:30%;height:30%"> ;;
   }
 
   measure: count {

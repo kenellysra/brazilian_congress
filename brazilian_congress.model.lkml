@@ -34,21 +34,21 @@ explore: ceap {
   }
 }
 
-explore: congressperson {}
+explore: congressperson {
+  join: legislatures {
+    sql_on: ${congressperson.legislature_start_id} = ${legislatures.legislature_id} ;;
+    relationship: many_to_one
+  }
+}
 
 explore: proposal_authors {
-  join:  pdt_congressperson_ceap {
-    sql_on: ${pdt_congressperson_ceap.id} =${proposal_authors.author_id} AND ${proposal_authors.author_type_code} = 10000;;
+  join:  congressperson {
+    sql_on: ${congressperson.id} =${proposal_authors.author_id} AND ${proposal_authors.author_type_code} = 10000;;
     relationship: many_to_many
   }
 
-
-#   join: congressperson {
-#     sql_on: ${congressperson.id} = ${proposal_authors.author_id} AND ${proposal_authors.author_type_code} = 10000 ;;
-#     relationship: many_to_one
-#   }
   join: proposals {
-    sql_on: ${proposal_authors.author_id} = ${proposals.proposal_id} ;;
+    sql_on: ${proposal_authors.proposal_id} = ${proposals.proposal_id} ;;
     relationship: many_to_one
 
   }
@@ -57,10 +57,6 @@ explore: proposal_authors {
     relationship: :many_to_one
 
   }
-#   join: ceap {
-#     sql_on: ${ceap.congressperson_id} = ${congressperson.id} ;;
-#
-#   }
 }
 
 explore: proposal_topics {}
@@ -68,6 +64,8 @@ explore: proposal_topics {}
 explore: proposals {}
 
 explore: congressperson_spending_facts {}
+
+explore: congressperson_career {}
 
 explore: pdt_proposals_authors_congressperson {
   label: "Congressperson Expenses"
@@ -79,8 +77,6 @@ explore: pdt_proposals_authors_congressperson {
     sql_on: ${pdt_proposals_authors_congressperson.congressperson_id} = ${ceap.congressperson_id};;
     relationship: many_to_many
   }
-
-
 
 }
 

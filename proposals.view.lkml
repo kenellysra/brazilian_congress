@@ -180,8 +180,34 @@ view: proposals {
 
   dimension: is_approved {
     type: yesno
-    #sql: CONTAINS('aprovado', lower(${dispatch_last_status})) ;;
     sql: lower(${dispatch_last_status}) LIKE '%aprovado%';;
+  }
+
+  dimension: proposition_type {
+    type: string
+    sql: CASE
+            WHEN lower(${proposal_type_description}) LIKE '%emenda%' THEN 'Amendment'
+            WHEN lower(${proposal_type_description}) LIKE '%projeto de lei%' THEN 'Bill'
+            WHEN ${proposal_type_initials} = 'REQ' THEN 'Requirement'
+            WHEN lower(${proposal_type_description}) LIKE '%parecer%' THEN 'Opinion'
+            ELSE 'Others'
+            END
+          ;;
+  }
+
+  dimension: proposition_status {
+    type: string
+    sql: CASE
+            WHEN lower(${proposal_last_updated_status}) LIKE '%aguardando%' OR ${procedure_type_id_last_status} = 319 THEN 'On Hold'
+            WHEN lower(${proposal_last_updated_status}) = '%arquivada%' OR ${procedure_type_id_last_status} = 502 THEN 'Filed'
+            WHEN ${situation_id_last_status} = 1140 THEN 'Transformed in Legal Norm'
+            WHEN ${situation_id_last_status} = 1230 THEN 'Transformed in New Proposition'
+            WHEN ${situation_id_last_status} = 1285 THEN 'Requirement Process Completed'
+            WHEN ${procedure_type_id_last_status}= 100 THEN 'Proposition Submitted'
+            ELSE 'Others'
+            END
+            ;;
+
   }
 
   dimension: proposal_duration {

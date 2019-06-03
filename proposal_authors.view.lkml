@@ -1,6 +1,12 @@
 view: proposal_authors {
   sql_table_name: kenelly_thesis.proposal_authors ;;
 
+
+  dimension: primary_key {
+    primary_key: yes
+    sql: CONCAT(CAST(${TABLE}.idDeputadoAutor AS string), CAST(${TABLE}.idProposicao AS string)) ;;
+  }
+
   dimension: author_type_code {
     type: number
     sql: ${TABLE}.codTipoAutor ;;

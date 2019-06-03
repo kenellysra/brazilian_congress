@@ -39,7 +39,13 @@ view: proposal_topics {
 
   dimension: proposal_topic {
     type: string
-    sql: ${TABLE}.tema ;;
+    sql: CASE
+              WHEN ${TABLE}.tema  = 'Criminal Law and Criminal Procedure Law' THEN 'Criminal Law'
+              WHEN ${TABLE}.tema = 'Civil Law and Civil Procedural Law' THEN 'Civil Law'
+              WHEN ${TABLE}.tema = 'Environment and Sustainable Development' THEN 'Environment and Sustainability'
+              WHEN ${TABLE}.tema = 'Aviation, Transportation and Mobility' THEN 'Aviation, Transports and Mobitily'
+              ELSE ${TABLE}.tema
+              END;;
   }
 
   dimension: proposal_uri {
