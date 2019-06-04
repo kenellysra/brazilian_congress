@@ -18,6 +18,7 @@ view: ceap {
       raw,
       time,
       date,
+      day_of_week,
       week,
       month,
       quarter,
@@ -269,9 +270,41 @@ view: ceap {
     sql: ${spending_document_amount}/${count_congressperson} ;;
   }
 
+  measure: congressperson_spending {
+    type: number
+    sql: ${spending_document_amount} ;;
+  }
+
   measure: total_spent {
     type: sum
     sql: ${spending_document_amount} ;;
     value_format: "\" R\"$#,##0.00"
+  }
+
+  measure: average_spending {
+    type: average
+    sql: ${spending_document_amount} ;;
+    value_format: "\" R\"$#,##0.00"
+  }
+
+  measure: most_recent_spending{
+    type:  date
+    sql:  MAX(${spending_date_raw});;
+    convert_tz: no
+  }
+
+  #Comparison between one congressperson and all the others
+  filter: congressperson_select {
+    suggest_dimension: congressperson_name
+  }
+
+  dimension: congressperson_comparitor {
+    type:  string
+    sql: CASE
+              WHEN {% condition congressperson_select %} ${congressperson_name} {% endcondition %}
+                THEN ${congressperson_name}
+              ELSE 'Others Congresspeople'
+          END;;
+
   }
 }
