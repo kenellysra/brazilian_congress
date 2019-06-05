@@ -2,13 +2,14 @@ view: congressperson_spending_facts {
   derived_table: {
     sql: SELECT ceap.ideCadastro AS congressperson_id,
         ceap.txNomeParlamentar  AS congressperson_name,
+        ceap.txtDescricao AS spending_category,
         MAX(vlrDocumento) AS expensive_expense,
         MIN(vlrDocumento) AS cheaper_expense,
         ROUND(SUM(vlrDocumento), 2) AS  total_spent
         FROM kenelly_thesis.ceap ceap
         LEFT JOIN kenelly_thesis.congressperson  congressperson
         ON ceap.ideCadastro = (CAST(SUBSTR(congressperson._uri_, 53, 6) AS INT64))
-      GROUP BY 1, 2
+      GROUP BY 1, 2,3
        ;;
   }
 
@@ -20,6 +21,11 @@ view: congressperson_spending_facts {
   dimension: congressperson_id {
     type: number
     sql: ${TABLE}.congressperson_id ;;
+  }
+
+  dimension: spending_category {
+    type:  string
+    sql: ${TABLE}.spending_category ;;
   }
 
   dimension: congressperson_name {
@@ -45,11 +51,17 @@ view: congressperson_spending_facts {
     value_format: "\" R\"$#,##0.00"
   }
 
+  measure: most_expensive {
+    type: number
+    sql: ${TABLE}.expensive_expense ;;
+    value_format: "\" R\"$#,##0.00"
+  }
   set: detail {
     fields: [
       congressperson_id,
       congressperson_name,
       expensive_expense,
+      spending_category,
       cheaper_expense,
       total_spent
     ]
