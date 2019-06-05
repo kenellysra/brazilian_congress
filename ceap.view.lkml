@@ -213,6 +213,18 @@ view: ceap {
     html: <img src="https://www.congressonacional.leg.br/congresso-theme/images/_carrossel_foto1.jpg" style="width:100%;height:10%;"> ;;
   }
 
+  dimension: chamber_deputies_image {
+    sql: ${TABLE}.sgUF ;;
+    html: <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Camara_dos_Deputados_do_Brasil_2019.svg/1200px-Camara_dos_Deputados_do_Brasil_2019.svg.png" style="width:40%;height:40%;"> ;;
+
+  }
+
+  dimension: federal_senate_image {
+    sql: ${TABLE}.sgUF ;;
+    html: <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Senado_Federal_do_Brasil_2019.svg/360px-Senado_Federal_do_Brasil_2019.svg.png"style="width:40%;height:40%;"> ;;
+
+  }
+
   dimension: state_full_name {
     type: string
     sql: CASE
@@ -251,47 +263,74 @@ view: ceap {
 
   measure: count {
     type: count
-    drill_fields: [id]
+    drill_fields: [congressperson_name, spending_date_date,congressperson_political_party, spending_category, supplier_name]
   }
 
   measure: maximum_spending{
     type: max
     sql: ${spending_document_amount} ;;
+    drill_fields: [congressperson_name, spending_date_date,congressperson_political_party, spending_category, supplier_name, maximum_spending]
   }
 
   measure: count_congressperson {
     type: count_distinct
     sql:  ${congressperson_id};;
-   # drill_fields: [congressperson_name, congressperson_id]
+   drill_fields: [congressperson_name, congressperson_id]
   }
 
   measure: proportional_spending_by_party{
     type: number
     sql: ${spending_document_amount}/${count_congressperson} ;;
+    drill_fields: [congressperson_name, spending_date_date,congressperson_political_party, spending_category, supplier_name, proportional_spending_by_party]
   }
 
   measure: congressperson_spending {
     type: number
     sql: ${spending_document_amount} ;;
+    drill_fields: [congressperson_name, spending_date_date,congressperson_political_party, spending_category, supplier_name, congressperson_spending]
   }
 
   measure: total_spent {
     type: sum
     sql: ${spending_document_amount} ;;
     value_format: "\" R\"$#,##0.00"
+    drill_fields: [congressperson_name, spending_date_date,congressperson_political_party, spending_category, supplier_name, total_spent]
   }
 
   measure: average_spending {
     type: average
     sql: ${spending_document_amount} ;;
     value_format: "\" R\"$#,##0.00"
+    drill_fields: [spending_date_date, congressperson_name, spending_category, spending_detail, supplier_name, spending_document_amount ]
   }
 
   measure: most_recent_spending{
     type:  date
     sql:  MAX(${spending_date_raw});;
     convert_tz: no
+    drill_fields: [congressperson_name, spending_date_date,congressperson_political_party, spending_category, supplier_name, most_recent_spending]
   }
+  measure: count_suppliers {
+    type:  count_distinct
+    sql: ${supplier_name} ;;
+    drill_fields: [congressperson_name, spending_date_date,congressperson_political_party, spending_category, supplier_name, count_suppliers]
+  }
+
+  measure: suppliers_by_congressperson {
+    type: number
+    sql: ${count_suppliers}/NULLIF(${count_congressperson},0) ;;
+    value_format_name: decimal_2
+    drill_fields: [congressperson_name, spending_date_date,congressperson_political_party, spending_category, supplier_name, suppliers_by_congressperson]
+
+  }
+
+  measure: total_spending_by_congressperson {
+    type: number
+    sql:  ${total_spent}/NULLIF(${count_congressperson},0)  ;;
+    value_format_name: decimal_2
+    drill_fields: [congressperson_name, spending_date_date,congressperson_political_party, spending_category, supplier_name, total_spending_by_congressperson ]
+  }
+
 
   #Comparison between one congressperson and all the others
   filter: congressperson_select {

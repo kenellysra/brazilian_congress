@@ -13,6 +13,11 @@ map_layer: my_neighborhood_layer {
   property_key: "neighborhood"
 }
 
+named_value_format: brazilian_reais {
+  value_format: "\R$#,##0.00"
+
+}
+
 persist_with: kenelly_thesis_brazilian_congress_default_datagroup
 
 explore: ceap {
@@ -66,6 +71,12 @@ explore: proposals {}
 explore: congressperson_spending_facts {}
 
 explore: congressperson_career {}
+
+explore: top_suppliers_by_category {}
+
+explore: political_party_timeline_2 {}
+
+explore: legislatures {}
 
 explore: pdt_proposals_authors_congressperson {
   label: "Congressperson Expenses"

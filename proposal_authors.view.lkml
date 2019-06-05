@@ -64,6 +64,6 @@ view: proposal_authors {
 
   measure: count {
     type: count
-    drill_fields: []
+    drill_fields: [proposal_id, author_name, author_political_party_initials]
   }
 }

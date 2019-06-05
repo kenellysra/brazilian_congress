@@ -95,6 +95,7 @@ view: congressperson {
   measure: count_distinct {
     type: count_distinct
     sql:  ${id};;
+    drill_fields: [id,name, legislature_start_id, legislature_end_id]
 
   }
 
@@ -128,6 +129,7 @@ view: congressperson {
 
   measure: count {
     type: count
-    drill_fields: []
+    drill_fields: [id,name, legislature_start_id, legislature_end_id]
   }
+
 }

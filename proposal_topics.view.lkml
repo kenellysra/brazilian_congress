@@ -55,6 +55,6 @@ view: proposal_topics {
 
   measure: count {
     type: count
-    drill_fields: []
+    drill_fields: [proposal_id, proposal_topic, proposal_year]
   }
 }
