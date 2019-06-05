@@ -119,7 +119,10 @@ view: ceap {
 
   dimension: spending_category {
     type: string
-    sql: ${TABLE}.txtDescricao ;;
+    sql: CASE
+          WHEN ${TABLE}.txtDescricao = "Disclosure of the Parliamentary Activity" THEN "Publicity"
+          ELSE ${TABLE}.txtDescricao
+          END;;
   }
 
   dimension: spending_detail {
