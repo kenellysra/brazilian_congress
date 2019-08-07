@@ -62,6 +62,11 @@ view: congressperson {
     sql: ${TABLE}.municipioNascimento ;;
   }
 
+  dimension: city {
+    type: string
+    sql: ${TABLE}.municipioNascimento ;;
+  }
+
   dimension: name {
     type: string
     sql: ${TABLE}.nome ;;

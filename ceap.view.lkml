@@ -19,6 +19,7 @@ view: ceap {
       time,
       date,
       day_of_week,
+      hour_of_day,
       week,
       month,
       quarter,
@@ -73,6 +74,11 @@ view: ceap {
   }
 
   dimension: spending_month {
+    type: number
+    sql: ${TABLE}.numMes ;;
+  }
+
+  measure: month_test {
     type: number
     sql: ${TABLE}.numMes ;;
   }
@@ -156,10 +162,20 @@ view: ceap {
     value_format: "\" R\"$#,##0.00"
   }
 
+  measure: spending_test {
+    type: number
+    sql: ${TABLE}.vlrDocumento ;;
+  }
+
   dimension: spending_gross_value {
     type: number
-    sql: ${TABLE}.vlrGlosa ;;
+    sql: ${TABLE}.vlrGlosa + 0;;
     value_format: "\" R\"$#,##0.00"
+  }
+
+  measure: spending_gross_test {
+    type: number
+    sql: ${TABLE}.vlrGlosa + 0 ;;
   }
 
   dimension: spending_net_value {
@@ -266,7 +282,7 @@ view: ceap {
 
   measure: count {
     type: count
-    drill_fields: [congressperson_name, spending_date_date,congressperson_political_party, spending_category, supplier_name]
+    drill_fields: [congressperson_name, spending_date_time,spending_date_date,congressperson_political_party, spending_category, supplier_name]
   }
 
   measure: maximum_spending{
@@ -349,4 +365,19 @@ view: ceap {
           END;;
 
   }
+
+
+
+  dimension: date_formatted {
+     label: "Date_formatted"
+     sql: ${spending_date_date} ;;
+     html:
+     {% if _user_attributes['locale'] == 'en' %}
+       {{ rendered_value | date: "%m/%d/%y" }}
+     {% endif %}
+     {% if _user_attributes['locale'] == 'en_gb' %}
+       {{ rendered_value | date:  "%d/%m/%y" }}
+     {% endif %};;
+   }
+
 }

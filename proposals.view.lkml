@@ -73,6 +73,8 @@ view: proposals {
       time,
       date,
       week,
+      day_of_week,
+      day_of_week_index,
       month,
       quarter,
       year

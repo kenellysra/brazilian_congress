@@ -2,10 +2,14 @@ connection: "lookerdata_standard_sql"
 
 # include all the views
 include: "*.view"
+week_start_day: sunday
+
+
 
 datagroup: kenelly_thesis_brazilian_congress_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
   max_cache_age: "1 hour"
+  sql_trigger: select SELECT max(pk) FROM ${pdt_congressperson_ceap.SQL_TABLE_NAME} ;;
 }
 
 map_layer: my_neighborhood_layer {
@@ -87,10 +91,12 @@ explore: pdt_proposals_authors_congressperson {
   join: ceap {
     sql_on: ${pdt_proposals_authors_congressperson.congressperson_id} = ${ceap.congressperson_id};;
     relationship: many_to_many
+
   }
 
 }
 
+explore: countries {}
 
 explore: all_data {
   always_filter: {
