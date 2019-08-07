@@ -9,7 +9,7 @@ week_start_day: sunday
 datagroup: kenelly_thesis_brazilian_congress_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
   max_cache_age: "1 hour"
-  sql_trigger: select SELECT max(pk) FROM ${pdt_congressperson_ceap.SQL_TABLE_NAME} ;;
+  sql_trigger: SELECT max(pk) FROM ${pdt_congressperson_ceap.SQL_TABLE_NAME} ;;
 }
 
 map_layer: my_neighborhood_layer {
