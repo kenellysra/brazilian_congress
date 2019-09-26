@@ -95,6 +95,12 @@ explore: pdt_proposals_authors_congressperson {
 
 }
 
+map_layer: world_countries_map_layer {
+  file: "world_countries.topojson"
+
+}
+
+
 explore: countries {}
 
 explore: all_data {

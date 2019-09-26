@@ -12,6 +12,11 @@ view: ceap {
     sql: ${TABLE}.codLegislatura ;;
   }
 
+  dimension: test_title {
+    type: string
+    sql: ${TABLE}.txNomeParlamentar ;;
+    html: <h1>Congressperson Name: {{ rendered_value }}</h1>  ;;
+  }
   dimension_group: spending_date {
     type: time
     timeframes: [
@@ -20,6 +25,7 @@ view: ceap {
       date,
       day_of_week,
       hour_of_day,
+      hour,
       week,
       month,
       quarter,
@@ -106,6 +112,7 @@ view: ceap {
   dimension: congressperson_state {
     type: string
     sql: ${TABLE}.sgUF ;;
+    suggestions: ["AC","PE", "PI", "SP"]
   }
 
   dimension: source_year {
@@ -201,6 +208,7 @@ view: ceap {
     sql: ${congressperson_state} ;;
     map_layer_name: my_neighborhood_layer
   }
+
 
   dimension: congressperson_image {
     type: string
@@ -345,10 +353,16 @@ view: ceap {
 
   measure: total_spending_by_congressperson {
     type: number
-    sql:  ${total_spent}/NULLIF(${count_congressperson},0)  ;;
-    value_format_name: decimal_2
+    sql:  SAFE_DIVIDE(${total_spent} - ${maximum_spending}, 100000) ;;
+   # sql: DIV(CAST(${total_spent}/NULLIF(${count_congressperson},0) AS INT64), 1000000000 );;
+    value_format_name: percent_0
     drill_fields: [congressperson_name, spending_date_date,congressperson_political_party, spending_category, supplier_name, total_spending_by_congressperson ]
   }
+
+  #Test link/html
+
+
+
 
 
   #Comparison between one congressperson and all the others
@@ -366,7 +380,15 @@ view: ceap {
 
   }
 
-
+  measure: count_last_month {
+    type: count_distinct
+    sql: ${id} ;;
+    filters: {
+      field: spending_date_month
+      value: "1 month ago"
+    }
+    drill_fields: [spending_date_month, count_last_month]
+  }
 
   dimension: date_formatted {
      label: "Date_formatted"
@@ -379,5 +401,91 @@ view: ceap {
        {{ rendered_value | date:  "%d/%m/%y" }}
      {% endif %};;
    }
+
+
+  #testing the group label
+
+  dimension_group: created_at {
+    label: "Order"
+    datatype: datetime
+    type: time
+    timeframes: [year, date, week, day_of_week, week_of_year, month, time, raw, month_num]
+    sql:  cast(${TABLE}.datEmissao as TIMESTAMP) ;;
+  }
+
+  dimension_group: created_at_accounting_explore {
+    group_label: "Order Group"
+    label: "Order original"
+    datatype: datetime
+    type: time
+    timeframes: [date, week, month, day_of_week, raw]
+    sql:  cast(${TABLE}.datEmissao as TIMESTAMP) ;;
+  }
+
+
+  dimension: created_at_european_format {
+    group_label: "Order Group"
+    label: "Order European"
+    type: date
+    sql:  cast(${TABLE}.datEmissao as TIMESTAMP) ;;
+    html: {{ rendered_value | date: "%d %B %Y" }} ;;
+  }
+
+  dimension_group: since_first_spending {
+    type: duration
+    sql_start: ${created_at_raw} ;;
+    sql_end:CURRENT_TIMESTAMP();;
+
+  }
+
+  # test dimension last month
+
+  dimension_group: last_month {
+    type: time
+    sql:  DATE_SUB(CAST( ${TABLE}.datEmissao AS DATE), INTERVAL 1 MONTH ) ;;
+    datatype: date
+  }
+
+  #test percent on subtota
+
+  measure: Accept_CategoryDecisionPercent {
+    label: "Total Accept % "
+    type: number
+    sql: ${TABLE}.vlrDocumento;;
+    value_format_name: percent_0
+  }
+
+
+  #test parameter
+
+  measure: testforcommissioncalculation{
+    type: number
+    sql:
+    case
+    when ${congressperson_id} = '{% parameter commission_to_count %}'
+    then ${spending_document_amount}*${average_spending}
+    else 1
+    end;;
+
+    }
+
+  parameter: commission_to_count {
+      type: string
+    }
+
+    measure: lat {
+      type: number
+      sql:  -6.90422 ;;
+    }
+
+    measure: long {
+      type: number
+      sql: -107.60636 ;;
+    }
+
+    measure: dist {
+      type: number
+      sql:  1000 ;;
+    }
 
 }

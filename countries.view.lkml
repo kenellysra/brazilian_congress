@@ -814,4 +814,5 @@ view: countries {
   measure: count {
     type: count
   }
+
 }
