@@ -1,11 +1,16 @@
 view: pdt_congressperson_ceap {
   derived_table: {
+    datagroup_trigger:kenelly_thesis_brazilian_congress_default_datagroup
     sql_trigger_value: SELECT 1 ;;
 #     partition_keys: ["dat_emissao"]
     sql: SELECT GENERATE_UUID() AS pk, *
       FROM kenelly_thesis.congressperson  AS congressperson
       LEFT JOIN kenelly_thesis.ceap  AS spending ON spending.ideCadastro = (CAST(SUBSTR(congressperson._uri_, 53, 6) AS INT64))
-       ;;
+      WHERE  ;;
+  }
+
+  filter: birth_date {
+    type: string
   }
 
   dimension: pk {
@@ -237,6 +242,10 @@ view: pdt_congressperson_ceap {
     sql: ${TABLE}.source_year ;;
   }
 
+  dimension: test {
+    type: string
+    sql: ceap.congressperson_legislature_code ;;
+  }
   set: detail {
     fields: [
       _uri_,

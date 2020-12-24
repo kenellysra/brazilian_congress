@@ -2,7 +2,7 @@ view: legislatures {
   sql_table_name: kenelly_thesis.legislatures ;;
 
   dimension: legislature_id {
-    primary_key: yes
+    #primary_key: yes
     type: number
     sql: ${TABLE}.legislature_id ;;
   }

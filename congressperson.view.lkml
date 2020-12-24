@@ -1,12 +1,26 @@
 view: congressperson {
+  label: "congressperson test"
   sql_table_name: kenelly_thesis.congressperson ;;
 
 
   dimension: id {
-    primary_key: yes
+    #primary_key: yes
     type: number
     sql: CAST(SUBSTR(${uri}, 53, 6) AS INT64);;
   }
+
+  dimension: id_test {
+    #primary_key: yes
+    type: number
+    sql: SUBSTR(${uri}, 53, 6);;
+  }
+
+
+  dimension: uri_test {
+    type: string
+    sql: SUBSTR(${uri}, 53, 6);;
+  }
+
   dimension: uri {
     type: string
     sql: ${TABLE}._uri_ ;;
@@ -135,6 +149,20 @@ view: congressperson {
   measure: count {
     type: count
     drill_fields: [id,name, legislature_start_id, legislature_end_id]
+  }
+
+  set: my_first_set {
+    fields: [
+      name,
+      gender
+    ]
+  }
+
+  measure: count_nulls  {
+    type: sum
+    sql: case when ${gender} is NULL then 1
+    else 0
+    END;;
   }
 
 }

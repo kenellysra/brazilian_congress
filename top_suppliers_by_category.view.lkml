@@ -29,9 +29,16 @@ view: top_suppliers_by_category {
     sql: ${TABLE}.congressperson_name ;;
   }
 
+
   dimension: spending_category {
     type: string
     sql: ${TABLE}.spending_category ;;
+#     link: {
+#       label: "Google"
+#       url: "http://www.google.com/search?q={{ value }}"
+#       icon_url: "http://google.com/favicon.ico"
+#     }
+    html: <a target="new" href="https://www.google.com/">Link to Google</a>;;
   }
 
   dimension: supplier_name {

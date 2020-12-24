@@ -1,9 +1,8 @@
 connection: "lookerdata_standard_sql"
 
 # include all the views
-include: "/*.view"
+include: "*.view"
 week_start_day: sunday
-include: "/*.dashboard"
 
 
 
@@ -14,7 +13,7 @@ datagroup: kenelly_thesis_brazilian_congress_default_datagroup {
 
 map_layer: my_neighborhood_layer {
   file: "brazilian_states.topojson"
-#   property_key: "neighborhood"
+  property_key: "neighborhood"
 }
 
 named_value_format: brazilian_reais {
@@ -24,8 +23,10 @@ named_value_format: brazilian_reais {
 
 persist_with: kenelly_thesis_brazilian_congress_default_datagroup
 
+
 explore: ceap {
-  persist_for: "0 hour"
+
+
   join: congressperson {
     sql_on: ${ceap.congressperson_id} = ${congressperson.id} ;;
     relationship: many_to_one
@@ -82,10 +83,7 @@ explore: top_suppliers_by_category {
   hidden: yes
 }
 
-explore: political_party_timeline_2 {
-  label: "test"
-  view_label: "test view label"
-}
+explore: political_party_timeline_2 {}
 
 explore: legislatures {}
 
@@ -103,10 +101,10 @@ explore: pdt_proposals_authors_congressperson {
 
 }
 
-# map_layer: world_countries_map_layer {
-#   file: "world_countries.topojson"
-#
-# }
+map_layer: world_countries_map_layer {
+  file: "world_countries.topojson"
+
+}
 
 
 explore: countries {}
@@ -118,42 +116,4 @@ explore: all_data {
       value: "2 years"
     }
   }
-}
-
-explore: sql_runner_query_test {}
-
-
-explore: extend_view {
-  join: congressperson {
-    type: left_outer
-    sql_on: ${congressperson.id} = ${extend_view.congressperson_id};;
-  }
-
-}
-
-explore: ceap_3 {
-  from: ceap
-  fields: [ceap_3.id ]
-  join: congressperson {
-    sql_on: ${ceap_3.congressperson_id} = ${congressperson.id} ;;
-
-  }
-}
-explore: ceap_child {}
-
-explore: legislatures_cross {
-  from: legislatures
-  join: congressperson {
-    type: cross
-  }
-  join: ceap {
-    type: left_outer
-    sql_on: ${congressperson.id} = ${ceap.congressperson_id} ;;
-
-  }
-
-
-
-
-
 }

@@ -25,6 +25,7 @@ view: proposals {
       date,
       week,
       month,
+      month_name,
       quarter,
       year
     ]
