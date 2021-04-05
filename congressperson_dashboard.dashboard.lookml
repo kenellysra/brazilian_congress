@@ -1,7 +1,7 @@
 - dashboard: congressperson_filter
   title: Congressperson filter
   layout: newspaper
-  preferred_viewer: dashboards
+  preferred_viewer: dashboards-next
   embed_style:
     background_color: "#86fa49"
     show_title: true
