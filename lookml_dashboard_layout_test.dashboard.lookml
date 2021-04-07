@@ -1,6 +1,7 @@
 - dashboard: lookml_dashboard_layout_test
   title: lookml dashboard layout test
   layout: tile
+  preferred_viewer: dashboards-next
   elements:
   - title: New Tile
     name: New Tile
