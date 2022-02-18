@@ -1,7 +1,7 @@
 - dashboard: lookml_dashboard_layout_test
   preferred_viewer: dashboards-next
   title: lookml dashboard layout test
-  layout: tile
+  layout: grid
   elements:
   - title: New Tile
     name: New Tile
