@@ -7,7 +7,7 @@
     model: brazilian_congress
     explore: ceap
     type: table
-    fields: [ceap.count]
+    fields: [ceap.count, ceap.id]
     limit: 500
     column_limit: 50
     show_view_names: false
